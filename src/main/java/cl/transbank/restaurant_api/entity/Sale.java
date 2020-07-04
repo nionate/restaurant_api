@@ -1,11 +1,14 @@
 package cl.transbank.restaurant_api.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class Sale {
 
-    private long id, invoice, totalPrice;
+    @Id
+    private long id;
+    private long invoice, totalPrice;
     private String date, ciSeller, ciBuyer;
 
     public Sale(long id, long invoice, String date, String ciSeller, String ciBuyer, long totalPrice) {
