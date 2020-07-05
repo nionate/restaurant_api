@@ -19,4 +19,12 @@ public class Sale {
         this.ciBuyer = ciBuyer;
         this.totalPrice = totalPrice;
     }
+
+    public Sale(long invoice, String date, String ciSeller, String ciBuyer, long totalPrice) {
+        this.invoice = invoice;
+        this.date = date;
+        this.ciSeller = ciSeller;
+        this.ciBuyer = ciBuyer;
+        this.totalPrice = totalPrice;
+    }
 }

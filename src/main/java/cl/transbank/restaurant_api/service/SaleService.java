@@ -11,4 +11,6 @@ public class SaleService {
     public List<Sale> findAll() {
         return new ArrayList<>();
     }
+
+    public Sale createSale(Sale sale) { return null; }
 }
