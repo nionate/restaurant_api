@@ -12,5 +12,7 @@ public class SaleService {
         return new ArrayList<>();
     }
 
-    public Sale createSale(Sale sale) { return null; }
+    public Sale createSale(Sale sale) {
+        return null;
+    }
 }

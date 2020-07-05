@@ -20,8 +20,8 @@ public class SaleController {
     private SaleService saleService;
 
     @GetMapping("/sales")
-    ResponseEntity<List<Sale>> getAllSales() {
-        return new ResponseEntity<>(saleService.findAll(), HttpStatus.OK);
+    List<Sale> getAllSales() {
+        return saleService.findAll();
     }
 
     @PostMapping("/create")
