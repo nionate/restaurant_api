@@ -20,6 +20,6 @@ public class SaleService {
     }
 
     public Sale createSale(Sale sale) {
-        return null;
+        return saleRepository.save(sale);
     }
 }

@@ -29,4 +29,18 @@ public class SaleServiceTest {
         assertEquals(sale.getInvoice(), lastSale.getInvoice());
         assertEquals(sale.getCiSeller(), lastSale.getCiSeller());
     }
+
+    @Test
+    void shouldCreateANewSale() {
+        Sale sale = new Sale(12345L, LocalDate.now().toString(), "11.111.111-1", "22.222.222-2", 1000);
+        SaleService saleService = new SaleService(saleRepository);
+
+        saleService.createSale(sale);
+        List<Sale> saleList = saleService.findAll();
+
+        Sale expectedSale = saleList.get(saleList.size()-1);
+
+        assertEquals(sale.getInvoice(), expectedSale.getInvoice());
+        assertEquals(sale.getCiSeller(), expectedSale.getCiSeller());
+    }
 }
