@@ -2,7 +2,6 @@ package cl.transbank.restaurant_api.controller;
 
 import cl.transbank.restaurant_api.entity.Sale;
 import cl.transbank.restaurant_api.service.SaleService;
-import org.omg.CORBA.Any;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +25,6 @@ public class SaleController {
 
     @PostMapping("/create")
     ResponseEntity<Sale> createSale(@RequestBody Sale sale) {
-        return new ResponseEntity<Sale>(saleService.createSale(sale), HttpStatus.OK);
+        return new ResponseEntity<>(saleService.createSale(sale), HttpStatus.CREATED);
     }
 }
