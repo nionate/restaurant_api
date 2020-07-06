@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -20,12 +20,10 @@ public class UserController {
     private static final Gson gson = new Gson();
 
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> login(@RequestParam("user") String username, @RequestParam("password") String pwd) {
+    public ResponseEntity<String> login(@RequestBody User user) {
 
-        if (pwd.equals("123")){
-            String token = tokenAuthenticationService.getJWTToken(username);
-            User user = new User();
-            user.setUsername(username);
+        if (user.getPassword().equals("123")){
+            String token = tokenAuthenticationService.getJWTToken(user.getUsername());
             user.setToken(token);
 
             return new ResponseEntity<>(gson.toJson(user), HttpStatus.OK);

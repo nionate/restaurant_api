@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 @Service
 public class TokenAuthenticationService {
 
+    public TokenAuthenticationService() {}
+
     public String getJWTToken(String username) {
         String secretKey = "secretKey";
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils

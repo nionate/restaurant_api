@@ -5,8 +5,8 @@ import cl.transbank.restaurant_api.repository.SaleRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,7 +19,7 @@ public class SaleServiceTest {
 
     @Test
     void shouldGetAllSales() {
-        Sale sale = new Sale(12345L, "05-07-2020", "11.111.111-1", "22.222.222-2", 1000);
+        Sale sale = new Sale(12345L, LocalDate.now().toString(), "11.111.111-1", "22.222.222-2", 1000);
         saleRepository.save(sale);
         SaleService saleService = new SaleService(saleRepository);
 

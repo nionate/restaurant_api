@@ -4,7 +4,6 @@ import cl.transbank.restaurant_api.entity.Sale;
 import cl.transbank.restaurant_api.repository.SaleRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
