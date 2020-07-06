@@ -1,12 +1,11 @@
 package cl.transbank.restaurant_api.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.sql.Date;
 import java.util.UUID;
 
 @Entity
@@ -22,7 +21,8 @@ public class Sale {
     @Column(name="total_price")
     private long totalPrice;
     @Column(name="sale_date")
-    private String date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private Date saleDate;
     @Column(name="ci_seller")
     private String ciSeller;
     @Column(name="ci_buyer")
@@ -32,9 +32,9 @@ public class Sale {
 
     }
 
-    public Sale(long invoice, String date, String ciSeller, String ciBuyer, long totalPrice) {
+    public Sale(long invoice, Date saleDate, String ciSeller, String ciBuyer, long totalPrice) {
         this.invoice = invoice;
-        this.date = date;
+        this.saleDate = saleDate;
         this.ciSeller = ciSeller;
         this.ciBuyer = ciBuyer;
         this.totalPrice = totalPrice;
@@ -64,12 +64,12 @@ public class Sale {
         this.totalPrice = totalPrice;
     }
 
-    public String getDate() {
-        return date;
+    public Date getSaleDate() {
+        return saleDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setSaleDate(Date saleDate) {
+        this.saleDate = saleDate;
     }
 
     public String getCiSeller() {

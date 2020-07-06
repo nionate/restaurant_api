@@ -4,6 +4,7 @@ import cl.transbank.restaurant_api.entity.Sale;
 import cl.transbank.restaurant_api.entity.User;
 import cl.transbank.restaurant_api.service.SaleService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JacksonJsonParser;
@@ -17,6 +18,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,25 +43,26 @@ public class SaleControllerTest {
     @Test
     public void shouldReturnAListWithAllSales() throws Exception {
         String token = obtainAccessToken("dummyUser", "123");
+        Gson gson = new Gson();
 
         List<Sale> sales = new ArrayList<Sale>();
-        sales.add(new Sale(12345L, "04-07-2020", "11.111.111-1", "22.222.222-2", 10000L));
-        sales.add(new Sale(12346L, "04-07-2020", "12.112.111-2", "24.224.222-4", 2000L));
-        when(saleService.findAll()).thenReturn(sales);
+        Date salesDay = new Date(System.currentTimeMillis());
+        sales.add(new Sale(12345L, salesDay, "11.111.111-1", "22.222.222-2", 10000L));
+        sales.add(new Sale(12346L, salesDay, "12.112.111-2", "24.224.222-4", 2000L));
+        when(saleService.findSalesOfTheDay(any())).thenReturn(sales);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/sales")
                 .header(HttpHeaders.AUTHORIZATION, token)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andDo(print());
-
     }
 
     @Test
     public void shouldAddANewSale() throws Exception {
         String token = obtainAccessToken("dummyUser", "123");
 
-        Sale sale = new Sale(12345L, "04-07-2020", "11.111.111-1", "22.222.222-2", 10000L);
+        Sale sale = new Sale(12345L, new Date(System.currentTimeMillis()), "11.111.111-1", "22.222.222-2", 10000L);
         when(saleService.createSale(any(Sale.class))).thenReturn(sale);
 
         mockMvc.perform(post("/create")

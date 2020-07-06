@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Date;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -19,8 +21,11 @@ public class SaleController {
     private SaleService saleService;
 
     @GetMapping("/sales")
-    List<Sale> getAllSales() {
-        return saleService.findAll();
+    List<Sale> getAllSalesOfTheDay(@RequestBody(required = false) Sale sale) throws ParseException {
+        if (sale == null) {
+            return saleService.findSalesOfTheDay(new Date(System.currentTimeMillis()));
+        }
+        return saleService.findSalesOfTheDay(sale.getSaleDate());
     }
 
     @PostMapping("/create")
