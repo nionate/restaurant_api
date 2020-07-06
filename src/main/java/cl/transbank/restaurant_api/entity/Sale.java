@@ -2,21 +2,26 @@ package cl.transbank.restaurant_api.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
 public class Sale {
 
     @Id
-    @GeneratedValue(generator="system-uuid")
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @GenericGenerator(name="system-uuid",
             strategy = "uuid")
     private UUID id;
-    private long invoice, totalPrice;
-    private String date, ciSeller, ciBuyer;
+    private long invoice;
+    @Column(name="total_price")
+    private long totalPrice;
+    @Column(name="sale_date")
+    private String date;
+    @Column(name="ci_seller")
+    private String ciSeller;
+    @Column(name="ci_buyer")
+    private String ciBuyer;
 
     public Sale() {
 
