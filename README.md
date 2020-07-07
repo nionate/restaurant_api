@@ -205,7 +205,7 @@ curl --location --request GET 'localhost:8080/sales?date=2020-07-10' \
 |Método| Endpoint        | Http response status |
 |------|-----------------|----------------------|
 |POST   | /login         |200                   |
-|POST  |  /create        |200                   |
+|POST  |  /create        |201                   |
 |GET   |  /sales         |200                   |
 
 Para ver la documentación de la API visitar [este enlace a Swagger](http://localhost:8080/swagger-ui.html) 
