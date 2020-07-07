@@ -1,8 +1,8 @@
 # Prueba técnica Transbank
 
-Este servicio disponibiliza una API REST para un restaurant
+Este servicio disponibiliza una API REST para un restaurant 🍕
 
-## Prerequisitos
+## Prerequisitos 📋
 
 * Java 8
 
@@ -56,8 +56,7 @@ $ mvn clean install
 </dependency>
 ```
 
-## Testing
-
+## Testing ⚙
 Para realizar testing se utiliza los siguientes packages:
 
 * JUnit 4
@@ -94,7 +93,7 @@ Para realizar testing se utiliza los siguientes packages:
 ```bash
 $ mvn test
 ```
-## Uso
+## Uso 🚀
 
 1. Levantar el servicio
 
@@ -214,4 +213,4 @@ curl --location --request GET 'localhost:8080/sales' \
 |POST  |  /create        |200                   |
 |GET   |  /sales         |200                   |
 
-Para ver la documentación de la API visitar http://localhost:8080/swagger-ui.html
+Para ver la documentación de la API visitar [este enlace a Swagger](http://localhost:8080/swagger-ui.html) 
