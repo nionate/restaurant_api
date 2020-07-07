@@ -183,12 +183,10 @@ curl --location --request GET 'localhost:8080/sales' \
 --data-raw ''
 ```
 
-Si se desea consultar por un día en específico, en el request body para la llamada a */sales* puede agregar
+Si se desea consultar por un día en específico, en la url para la llamada a */sales* puede agregar el campo <b>date</b>
 
-```json
-{
-    "saleDate": "2020-07-10"
-}
+```html
+http://localhost:8080/sales?date=2020-07-10
 ```
 
 esto retornará las ventas para el día <b>2020-07-10</b>
@@ -196,16 +194,13 @@ esto retornará las ventas para el día <b>2020-07-10</b>
 Ejemplo de llamada a */sales* con una fecha específica
 
 ```bash
-curl --location --request GET 'localhost:8080/sales' \
---header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0YmsiLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNTk0MTM3NDkxLCJleHAiOjE1OTQxMzgwOTF9.9T6eD7pF6qgqmxaLRWaeFtwjWcNJIpD39KOUC3DiV8Vdpvxft3v3wUVwh7A_KnTDJJ263vXNH2F37Smoh9wX1w' \
---header 'Content-Type: application/json' \
---header 'Cookie: JSESSIONID=6E714A01ABD65D91F12F8DFCE09D0903' \
---data-raw '{
-    "saleDate": "2020-07-10"
-}'
+curl --location --request GET 'localhost:8080/sales?date=2020-07-10' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0YmsiLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNTk0MTQzMjMzLCJleHAiOjE1OTQxNDM4MzN9.-XdSDuv179_4ARFZhqpd50v8joReAF2_-mIDNxygzUXGVVfww2frGtVh6UiA_yiHigzxRZ2lMwdXSOJtE9ruMw' \
+--header 'Cookie: JSESSIONID=7B4337E5C0C2B5EB00D4F72420B38292' \
+--data-raw ''
 ```
 
-4. Se disponibilizan las siguientes rutas
+5. Se disponibilizan las siguientes rutas
 
 |Método| Endpoint        | Http response status |
 |------|-----------------|----------------------|
@@ -214,3 +209,8 @@ curl --location --request GET 'localhost:8080/sales' \
 |GET   |  /sales         |200                   |
 
 Para ver la documentación de la API visitar [este enlace a Swagger](http://localhost:8080/swagger-ui.html) 
+
+6. *Para autenticarse en Swagger con el token devuelto por el login se debe ingresar dicho token haciendo click en el boton <b>"Authorize"</b>*
+
+![alt text](https://imgur.com/zrEQHfH)
+![alt text](https://imgur.com/PIYUd1F)

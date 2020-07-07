@@ -7,11 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.text.ParseException;
 import java.util.List;
 
@@ -27,12 +25,13 @@ public class SaleController {
     JmsTemplate jmsTemplate;
 
     @GetMapping("/sales")
-    ResponseEntity<List<Sale>> getAllSalesOfTheDay(@RequestBody(required = false) Sale sale) throws ParseException {
+    ResponseEntity<List<Sale>> getAllSalesOfTheDay(@RequestParam(required = false) String date) throws ParseException {
 
-        if (sale == null) {
+        if (date == null) {
             sender.send("sales.q", String.valueOf(System.currentTimeMillis()));
         }else{
-            sender.send("sales.q", String.valueOf(sale.getSaleDate().getTime()));
+            Date date1 = Date.valueOf(date);
+            sender.send("sales.q", String.valueOf(date1.getTime()));
         }
         return ResponseEntity.ok((List<Sale>) jmsTemplate.receiveAndConvert("salesOfDay.q"));
     }
