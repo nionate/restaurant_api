@@ -212,5 +212,5 @@ Para ver la documentación de la API visitar [este enlace a Swagger](http://loca
 
 6. *Para autenticarse en Swagger con el token devuelto por el login se debe ingresar dicho token haciendo click en el boton <b>"Authorize"</b>*
 
-![alt text](https://imgur.com/zrEQHfH)
-![alt text](https://imgur.com/PIYUd1F)
+![alt text](https://i.imgur.com/zrEQHfH.png)
+![alt text](https://i.imgur.com/PIYUd1F.png)
