@@ -5,6 +5,7 @@ import cl.transbank.restaurant_api.entity.User;
 import cl.transbank.restaurant_api.service.Receiver;
 import cl.transbank.restaurant_api.service.SaleService;
 import cl.transbank.restaurant_api.service.Sender;
+import cl.transbank.restaurant_api.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,22 +39,18 @@ public class SaleControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
     @Autowired
     private Sender sender;
-
     @Autowired
     private Receiver receiver;
-
     @MockBean
     private SaleService saleService;
-
     @MockBean
     private JmsTemplate jmsTemplate;
 
     @Test
     public void shouldReturnAListWithAllSales() throws Exception {
-        String token = obtainAccessToken("dummyUser", "123");
+        String token = obtainAccessToken("tbk", "superpassw0rd!");
 
         List<Sale> sales = new ArrayList<Sale>();
         Date salesDay = new Date(System.currentTimeMillis());
@@ -71,7 +68,7 @@ public class SaleControllerTest {
 
     @Test
     public void shouldAddANewSale() throws Exception {
-        String token = obtainAccessToken("dummyUser", "123");
+        String token = obtainAccessToken("tbk", "superpassw0rd!");
 
         Sale sale = new Sale(12345L, new Date(System.currentTimeMillis()), "11.111.111-1", "22.222.222-2", 10000L);
         when(saleService.createSale(any(Sale.class))).thenReturn(sale);
@@ -95,7 +92,6 @@ public class SaleControllerTest {
     }
 
     private String obtainAccessToken(String username, String password) throws Exception {
-
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);

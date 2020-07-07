@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.sql.Date;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -61,11 +60,5 @@ public class SaleServiceTest {
 
         assertEquals(1, expectedSales.size());
         assertEquals(12346, expectedSales.get(0).getInvoice());
-    }
-
-    private Date convertToDate(LocalDate localDate) {
-        ZoneId defaultZoneId = ZoneId.systemDefault();
-        Date date = (Date) Date.from(localDate.atStartOfDay(defaultZoneId).toInstant());
-        return date;
     }
 }
