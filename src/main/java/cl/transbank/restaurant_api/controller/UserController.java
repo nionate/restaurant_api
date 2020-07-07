@@ -1,5 +1,6 @@
 package cl.transbank.restaurant_api.controller;
 
+import cl.transbank.restaurant_api.entity.Credentials;
 import cl.transbank.restaurant_api.entity.User;
 import cl.transbank.restaurant_api.service.TokenAuthenticationService;
 import com.google.gson.Gson;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Autowired
-    private TokenAuthenticationService tokenAuthenticationService;
+    TokenAuthenticationService tokenAuthenticationService;
 
     private static final Gson gson = new Gson();
 
@@ -24,9 +25,9 @@ public class UserController {
 
         if (user.getPassword().equals("123")){
             String token = tokenAuthenticationService.getJWTToken(user.getUsername());
-            user.setToken(token);
+            Credentials credentials = new Credentials(user.getUsername(), token);
 
-            return new ResponseEntity<>(gson.toJson(user), HttpStatus.OK);
+            return new ResponseEntity<>(gson.toJson(credentials), HttpStatus.OK);
         }
         return new ResponseEntity<>(gson.toJson("Credentials error"), HttpStatus.UNAUTHORIZED);
     }

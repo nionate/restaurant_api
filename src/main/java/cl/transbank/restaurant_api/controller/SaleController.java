@@ -2,15 +2,16 @@ package cl.transbank.restaurant_api.controller;
 
 import cl.transbank.restaurant_api.entity.Sale;
 import cl.transbank.restaurant_api.service.SaleService;
+import cl.transbank.restaurant_api.service.Sender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.util.List;
 
@@ -18,17 +19,29 @@ import java.util.List;
 public class SaleController {
 
     @Autowired
-    private SaleService saleService;
+    SaleService saleService;
+
+    @Autowired
+    Sender sender;
+    @Autowired
+    JmsTemplate jmsTemplate;
 
     @GetMapping("/sales")
-    List<Sale> getAllSalesOfTheDay(@RequestBody(required = false) Sale sale) throws ParseException {
+    ResponseEntity<List<Sale>> getAllSalesOfTheDay(@RequestBody(required = false) Sale sale) throws ParseException {
+
         if (sale == null) {
-            return saleService.findSalesOfTheDay(new Date(System.currentTimeMillis()));
+            sender.send("sales.q", String.valueOf(System.currentTimeMillis()));
+        }else{
+            sender.send("sales.q", String.valueOf(sale.getSaleDate().getTime()));
         }
-        return saleService.findSalesOfTheDay(sale.getSaleDate());
+        return ResponseEntity.ok((List<Sale>) jmsTemplate.receiveAndConvert("salesOfDay.q"));
     }
 
-    @PostMapping("/create")
+    public ResponseEntity<List<Sale>> getAllSalesOfTheDay(List<Sale> sales) throws ParseException {
+        return new ResponseEntity<>(sales, HttpStatus.OK);
+    }
+
+        @PostMapping("/create")
     ResponseEntity<Sale> createSale(@RequestBody Sale sale) {
         return new ResponseEntity<>(saleService.createSale(sale), HttpStatus.CREATED);
     }

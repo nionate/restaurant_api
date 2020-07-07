@@ -6,9 +6,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.sql.Date;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.sql.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -47,7 +48,7 @@ public class SaleServiceTest {
     }
 
     @Test
-    void shouldGetAllSalesFromToday() {
+    void shouldGetAllSalesFromToday() throws ParseException {
         Sale sale = new Sale(12345L, new Date(System.currentTimeMillis()), "11.111.111-1", "22.222.222-2", 1000);
         Date someDate = new Date(LocalDate.of(2020, 7, 5).toEpochDay());
         Sale sale2 = new Sale(12346L, someDate, "11.111.111-1", "22.222.222-2", 1000);

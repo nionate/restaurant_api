@@ -2,9 +2,10 @@ package cl.transbank.restaurant_api.controller;
 
 import cl.transbank.restaurant_api.entity.Sale;
 import cl.transbank.restaurant_api.entity.User;
+import cl.transbank.restaurant_api.service.Receiver;
 import cl.transbank.restaurant_api.service.SaleService;
+import cl.transbank.restaurant_api.service.Sender;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JacksonJsonParser;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -37,21 +39,30 @@ public class SaleControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private Sender sender;
+
+    @Autowired
+    private Receiver receiver;
+
     @MockBean
     private SaleService saleService;
+
+    @MockBean
+    private JmsTemplate jmsTemplate;
 
     @Test
     public void shouldReturnAListWithAllSales() throws Exception {
         String token = obtainAccessToken("dummyUser", "123");
-        Gson gson = new Gson();
 
         List<Sale> sales = new ArrayList<Sale>();
         Date salesDay = new Date(System.currentTimeMillis());
         sales.add(new Sale(12345L, salesDay, "11.111.111-1", "22.222.222-2", 10000L));
         sales.add(new Sale(12346L, salesDay, "12.112.111-2", "24.224.222-4", 2000L));
         when(saleService.findSalesOfTheDay(any())).thenReturn(sales);
+        when(jmsTemplate.receiveAndConvert("salesOfDay.q")).thenReturn(sales);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/sales")
+       mockMvc.perform(MockMvcRequestBuilders.get("/sales")
                 .header(HttpHeaders.AUTHORIZATION, token)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(2)))

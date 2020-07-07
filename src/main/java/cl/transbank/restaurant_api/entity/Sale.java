@@ -5,11 +5,12 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.UUID;
 
 @Entity
-public class Sale {
+public class Sale implements Serializable {
 
     @Id
     @Type(type="uuid-char")
