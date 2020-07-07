@@ -2,20 +2,20 @@ package cl.transbank.restaurant_api.entity;
 
 public class Credentials {
 
-    private String usename;
+    private String username;
     private String token;
 
-    public Credentials(String usename, String token) {
-        this.usename = usename;
+    public Credentials(String username, String token) {
+        this.username = username;
         this.token = token;
     }
 
-    public String getUsename() {
-        return usename;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUsename(String usename) {
-        this.usename = usename;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getToken() {

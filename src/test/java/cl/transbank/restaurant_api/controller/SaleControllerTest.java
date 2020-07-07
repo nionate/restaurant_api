@@ -5,7 +5,6 @@ import cl.transbank.restaurant_api.entity.User;
 import cl.transbank.restaurant_api.service.Receiver;
 import cl.transbank.restaurant_api.service.SaleService;
 import cl.transbank.restaurant_api.service.Sender;
-import cl.transbank.restaurant_api.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
