@@ -1,6 +1,9 @@
 package cl.transbank.restaurant_api.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -12,6 +15,9 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.UUID;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class Sale implements Serializable {
 
@@ -32,63 +38,11 @@ public class Sale implements Serializable {
     @Column(name="ci_buyer")
     private String ciBuyer;
 
-    public Sale() {
-
-    }
-
     public Sale(long invoice, Date saleDate, String ciSeller, String ciBuyer, long totalPrice) {
         this.invoice = invoice;
         this.saleDate = saleDate;
         this.ciSeller = ciSeller;
         this.ciBuyer = ciBuyer;
         this.totalPrice = totalPrice;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public long getInvoice() {
-        return invoice;
-    }
-
-    public void setInvoice(long invoice) {
-        this.invoice = invoice;
-    }
-
-    public long getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(long totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public Date getSaleDate() {
-        return saleDate;
-    }
-
-    public void setSaleDate(Date saleDate) {
-        this.saleDate = saleDate;
-    }
-
-    public String getCiSeller() {
-        return ciSeller;
-    }
-
-    public void setCiSeller(String ciSeller) {
-        this.ciSeller = ciSeller;
-    }
-
-    public String getCiBuyer() {
-        return ciBuyer;
-    }
-
-    public void setCiBuyer(String ciBuyer) {
-        this.ciBuyer = ciBuyer;
     }
 }
